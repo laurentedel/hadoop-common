@@ -243,6 +243,12 @@ public class SimpleCopyListing extends CopyListing {
     if (fileStatus.getPath().equals(sourcePathRoot) && fileStatus.isDirectory())
       return; // Skip the root-paths.
 
+    //TODO UnitTests for that !
+    if (fileStatus.getPath().toString().endsWith("tmp") && ! fileStatus.isDirectory()) {
+	LOG.warn("Ignoring tmp file " + fileStatus.getPath().toString());
+	return;
+    }
+
     if (LOG.isDebugEnabled()) {
       LOG.debug("REL PATH: " + DistCpUtils.getRelativePath(sourcePathRoot,
         fileStatus.getPath()) + ", FULL PATH: " + fileStatus.getPath());
